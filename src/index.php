@@ -15,7 +15,27 @@ $router->addRoute('get','/',function(){
     include_once DIRECTORIO_VISTAS."informacion.php";
 });
 
+$router->addRoute('post','/estudiante',function(){
+    $estudiante = new \App\Class\Estudiante();
+    $estudiante->setNIA($_POST['nia']);
+    $estudiante->setNombre($_POST['nombre']);
+    $estudiante->setCorreo($_POST['correo']);
 
+    $estudiante->save();
+});
+
+$router->addRoute('get','/api/estudiante/{id}',function(){
+    $estudiante = new Estudiante();
+    $estudiante->setNIA('12345678');
+    $estudiante->setNombre('Carlos');
+    $estudiante->setCorreo('mail@mail.com');
+    echo json_encode($estudiante);
+
+});
+
+
+$router->addRoute('delete','/expediente/{id}',[\App\Model\ExpedienteModelo::class,'destroy']);
+$router->addRoute('get','/expediente/{id}',[\App\Model\ExpedienteModelo::class,'show']);
 
 //Rutas enlazadas a controladores, lógica de la aplicación
 //Usuarios
